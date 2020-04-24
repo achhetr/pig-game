@@ -82,7 +82,18 @@ function resetGame() {
     currentPlayer = 0;
     currentScore = 0;
     gameActive = true;
-    winningScore = 20;
+
+    do {
+        var promptMessage
+        if(winningScore === '' || winningScore === null) {
+            promptMessage = 'Empty value not accepted, Enter again!'
+        } else {
+            promptMessage = 'Please enter winning score'
+        }
+        winningScore = prompt(promptMessage,100);
+    } while(winningScore === '' || winningScore === null);
+
+    console.log('winning score is' + winningScore)
 
     // reset players scores
     document.querySelector('.dice').style.display = 'none'
