@@ -35,21 +35,23 @@ document.querySelector('.btn-roll').addEventListener('click',function(){
 });
 
 document.querySelector('.btn-hold').addEventListener('click',function(){
-    // 1. add score
-    score[currentPlayer] += currentScore
+    if(gameActive) {
+        // 1. add score
+        score[currentPlayer] += currentScore
 
-    // 2. update UI
-    document.getElementById('score-' + currentPlayer).textContent = score[currentPlayer];
+        // 2. update UI
+        document.getElementById('score-' + currentPlayer).textContent = score[currentPlayer];
 
-    // 3. winner if more than 20
-    if(score[currentPlayer] >= winningScore) {
-        document.getElementById('name-'+ currentPlayer).textContent = 'winner!'
-        document.querySelector('.dice').style.display = 'none';
-        document.querySelector('.player-'+ currentPlayer +'-panel').classList.remove('active');
-        document.querySelector('.player-'+ currentPlayer +'-panel').classList.add('winner');
-        gameActive = false
-    } else {
-        togglePlayer()
+        // 3. winner if more than 20
+        if(score[currentPlayer] >= winningScore) {
+            document.getElementById('name-'+ currentPlayer).textContent = 'winner!'
+            document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.player-'+ currentPlayer +'-panel').classList.remove('active');
+            document.querySelector('.player-'+ currentPlayer +'-panel').classList.add('winner');
+            gameActive = false
+        } else {
+            togglePlayer();            
+        }
     }
 });
 
@@ -60,13 +62,14 @@ document.querySelector('.btn-new').addEventListener('click',resetGame);
 
 //change player
 function togglePlayer(){
-
-    currentScore = 0;
-    document.getElementById('current-' + currentPlayer).textContent = currentScore;
-    currentPlayer === 0 ? currentPlayer = 1: currentPlayer = 0; 
-
-    document.querySelector('.player-0-panel').classList.toggle('active');
-    document.querySelector('.player-1-panel').classList.toggle('active');    
+    setTimeout(function () {
+        currentScore = 0;
+        document.getElementById('current-' + currentPlayer).textContent = currentScore;
+        currentPlayer === 0 ? currentPlayer = 1 : currentPlayer = 0;
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+        document.querySelector('.dice').style.display = 'none';
+    }, 200);
 }
 
 
